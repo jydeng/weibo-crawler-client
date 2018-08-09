@@ -1,0 +1,22 @@
+{
+  "name": "weibo-crawler-client",
+  "version": "1.0.0",
+  "description": "微博爬虫客户端",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jydeng/weibo-crawler-client.git"
+  },
+  "keywords": [
+    "crawler-client"
+  ],
+  "author": "Roy",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jydeng/weibo-crawler-client/issues"
+  },
+  "homepage": "https://github.com/jydeng/weibo-crawler-client#readme"
+}
