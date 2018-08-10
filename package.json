@@ -4,7 +4,7 @@
   "description": "微博爬虫客户端",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node ./index.js"
   },
   "repository": {
     "type": "git",
@@ -18,5 +18,17 @@
   "bugs": {
     "url": "https://github.com/jydeng/weibo-crawler-client/issues"
   },
-  "homepage": "https://github.com/jydeng/weibo-crawler-client#readme"
+  "homepage": "https://github.com/jydeng/weibo-crawler-client#readme",
+  "dependencies": {
+    "ejs": "^2.6.1",
+    "guid": "0.0.12",
+    "koa": "^2.5.2",
+    "koa-bodyparser": "^3.2.0",
+    "koa-router": "^7.4.0",
+    "koa-static": "^5.0.0",
+    "koa-views": "^6.1.4",
+    "log4js": "^3.0.4",
+    "moment": "^2.22.2",
+    "mysql": "^2.16.0"
+  }
 }

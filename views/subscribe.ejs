@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>订阅的微博列表 --微博爬虫客户端</title>
+    <link href="https://cdn.bootcss.com/normalize/8.0.0/normalize.min.css" rel="stylesheet">
+    <link href="./assets/mdui/css/mdui.min.css" rel="stylesheet">
+    <link href="./css/subscribe.css" rel="stylesheet">
+</head>
+
+<body class="mdui-theme-primary-deep-purple">
+    <div class="mdui-container">
+        <button class="mdui-fab mdui-fab-fixed mdui-ripple mdui-color-theme-accent" id="addSubscribe"><i class="mdui-icon material-icons">add</i></button>
+        <div class="mdui-textfield mdui-textfield-floating-label">
+            <label class="mdui-textfield-label">按微博uid过滤,Enter查询</label>
+            <input class="mdui-textfield-input" type="text" id="uid"/>
+        </div>
+        <div class="mdui-table-fluid">
+            <table class="mdui-table mdui-table-hoverable">
+                <thead>
+                    <tr>
+                        <th>uid</th>
+                        <th>昵称</th>
+                        <th>最近的微博</th>
+                        <th>最近发微博时间</th>
+                        <th>微博主页</th>
+                    </tr>
+                </thead>
+                <tobdy>
+                    <% rows.forEach(function(row){ %>
+                        <tr data-id="<%=row.uid %>">
+                            <td><a href="./feeds?uid=<%=row.uid %>" class="mdui-btn"><%=row.uid %></a></td>
+                            <td><a href="./feeds?uid=<%=row.uid %>" class="mdui-btn"><%=row.uname %></a></td>
+                            <td><a href="<%=row.last_url %>"><%=row.last_title %></a></td>
+                            <td><%=row.last_feed_time %></td>
+                            <td><a href="https://weibo.com/u/<%=row.uid %>" class="md-btn md-btn-icon"><i class="mdui-icon material-icons">insert_link</i></a></td>
+                        </tr>
+                    <% }); %>
+                </tobdy>
+            </table>
+        </div>
+    </div>
+
+
+    <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+    <script src="./assets/mdui/js/mdui.min.js"></script>
+    <script src="./js/subscribe.js"></script>
+</body>
+
+</html>
