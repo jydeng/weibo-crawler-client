@@ -28,22 +28,56 @@ router.get('/', async ctx => {
   });
 });
 
-router.post('/add', async ctx => {
+router.post('/api/subscribe', async ctx => {
   let postData = ctx.request.body;
   let uid = postData['uid'];
   if (uid) {
     let exists = await subscribe.exists(uid);
     if (exists[0].c === 0) {
       if (await subscribe.addSubscribe(uid)) {
-        ctx.body = { code: 200, message: '新增订阅成功' };
+        ctx.type = 'json';
+        ctx.body = {
+          code: 200,
+          message:
+            '新增订阅成功<br>将在下一个周期自动抓取3个月内的所有博文,请稍候.'
+        };
       } else {
-        ctx.body = { code: 500, message: '新增订阅失败' };
+        ctx.type = 'json';
+        ctx.body = { code: 500, message: '新增订阅失败.' };
       }
     } else {
-      ctx.body = { code: 400, message: '这个uid已经在订阅列表里了' };
+      ctx.type = 'json';
+      ctx.body = { code: 400, message: '这个uid已经在订阅列表里了.' };
     }
   } else {
-    ctx.body = { code: 400, message: 'uid有误' };
+    ctx.type = 'json';
+    ctx.body = { code: 400, message: 'uid有误.' };
+  }
+});
+
+router.delete('/api/subscribe', async ctx => {
+  let postData = ctx.request.body;
+  let uid = postData['uid'];
+  if (uid) {
+    let exists = await subscribe.exists(uid);
+    if (exists[0].c > 0) {
+      if (
+        (await subscribe.cancelSubscribe(uid)) &&
+        (await feeds.delFeeds(uid))
+      ) {
+        ctx.type = 'json';
+        ctx.body = { code: 200, message: '取消订阅成功.' };
+      } else {
+        ctx.type = 'json';
+        ctx.body = { code: 500, message: '取消订阅失败.' };
+      }
+    } else {
+      ctx.type = 'json';
+      ctx.body = { code: 400, message: '这个uid已经取消订阅了.' };
+    }
+  } else {
+    ctx.type = 'json';
+    ctx.body = { code: 400, message: 'uid有误.' };
   }
 });
 
@@ -51,8 +85,13 @@ router.get('/feeds', async ctx => {
   let request = ctx.request;
   let req_query = request.query;
   let uid = req_query['uid'];
+  let uname = req_query['uname'];
 
-  await ctx.render('feeds', { uid: uid, rows: await feeds.selectFeeds(uid) });
+  await ctx.render('feeds', {
+    uid: uid,
+    uname: uname,
+    rows: await feeds.selectFeeds(uid)
+  });
 });
 
 app.use(router.routes());

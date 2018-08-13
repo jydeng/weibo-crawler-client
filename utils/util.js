@@ -12,6 +12,10 @@ function now() {
   return moment().format('YYYY-MM-DD HH:mm:ss');
 }
 
+function threeMonthBefore(){
+  return moment().add(-3, 'M').format('YYYY-MM-DD 00:00:00');
+}
+
 function sleep(time) {
   new Promise(resolve => {
     setTimeout(resolve, time);
@@ -33,5 +37,6 @@ module.exports = {
   sleep: sleep,
   guid: getGuid,
   now: now,
-  log: log
+  log: log,
+  threeMonthBefore:threeMonthBefore
 };

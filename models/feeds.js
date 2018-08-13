@@ -21,7 +21,7 @@ async function addFeeds(uid, content, url, feedtime) {
 
 /**
  * 查询博文
- * @param {string}} uid 微博id
+ * @param {string} uid 微博id
  */
 async function selectFeeds(uid) {
   try {
@@ -34,7 +34,23 @@ async function selectFeeds(uid) {
   }
 }
 
+/**
+ * 删除博文
+ * @param {string} uid 微博id
+ */
+async function delFeeds(uid){
+  try {
+    const sql = `DELETE FROM feeds WHERE uid = ?;`;
+    const values = [uid];
+    return await query(sql, values);
+  } catch (error) {
+    util.log(error.toString(), 'error');
+    return [];
+  }
+}
+
 module.exports = {
   addFeeds: addFeeds,
-  selectFeeds: selectFeeds
+  selectFeeds: selectFeeds,
+  delFeeds: delFeeds
 };

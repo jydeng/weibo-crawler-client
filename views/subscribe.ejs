@@ -6,37 +6,46 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>订阅的微博列表 --微博爬虫客户端</title>
+    <link rel="bookmark"href="/assets/weibo.ico" />
     <link href="https://cdn.bootcss.com/normalize/8.0.0/normalize.min.css" rel="stylesheet">
     <link href="./assets/mdui/css/mdui.min.css" rel="stylesheet">
     <link href="./css/subscribe.css" rel="stylesheet">
 </head>
 
-<body class="mdui-theme-primary-deep-purple">
-    <div class="mdui-container">
+<body class="mdui-theme-primary-deep-purple mdui-theme-accent-deep-purple">
+    <div class="mdui-container" style="margin-bottom:20px;">
+        <h3 class="doc-chapter-title mdui-text-color-theme">
+           已订阅的微博
+            <div class="mdui-textfield mdui-textfield-expandable mdui-float-right">
+                <button class="mdui-textfield-icon mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">search</i></button>
+                <input class="mdui-textfield-input" type="text" placeholder="依据微博uid检索,Enter开始搜索" id="uid"/>
+                <button class="mdui-textfield-close mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">close</i></button>
+            </div>
+        </h3>
+
         <button class="mdui-fab mdui-fab-fixed mdui-ripple mdui-color-theme-accent" id="addSubscribe"><i class="mdui-icon material-icons">add</i></button>
-        <div class="mdui-textfield mdui-textfield-floating-label">
-            <label class="mdui-textfield-label">按微博uid过滤,Enter查询</label>
-            <input class="mdui-textfield-input" type="text" id="uid"/>
-        </div>
         <div class="mdui-table-fluid">
             <table class="mdui-table mdui-table-hoverable">
                 <thead>
                     <tr>
                         <th>uid</th>
                         <th>昵称</th>
-                        <th>最近的微博</th>
+                        <th style="width:450px">最近的微博</th>
                         <th>最近发微博时间</th>
-                        <th>微博主页</th>
+                        <th>操作</th>
                     </tr>
                 </thead>
                 <tobdy>
                     <% rows.forEach(function(row){ %>
                         <tr data-id="<%=row.uid %>">
-                            <td><a href="./feeds?uid=<%=row.uid %>" class="mdui-btn"><%=row.uid %></a></td>
-                            <td><a href="./feeds?uid=<%=row.uid %>" class="mdui-btn"><%=row.uname %></a></td>
+                            <td><a href="./feeds?uid=<%=row.uid %>&uname=<%=row.uname %>"><%=row.uid %></a></td>
+                            <td><a href="./feeds?uid=<%=row.uid %>&uname=<%=row.uname %>"><%=row.uname %></a></td>
                             <td><a href="<%=row.last_url %>"><%=row.last_title %></a></td>
                             <td><%=row.last_feed_time %></td>
-                            <td><a href="https://weibo.com/u/<%=row.uid %>" class="md-btn md-btn-icon"><i class="mdui-icon material-icons">insert_link</i></a></td>
+                            <td>
+                                <a href="https://weibo.com/u/<%=row.uid %>" class="md-btn-icon"><i class="mdui-icon material-icons" title="前往微博主页">insert_link</i></a>&emsp;
+                                <a href="javascript:void(0);" class="md-btn-icon del"><i class="mdui-icon material-icons" title="取消订阅">delete_sweep</i></a>
+                            </td>
                         </tr>
                     <% }); %>
                 </tobdy>

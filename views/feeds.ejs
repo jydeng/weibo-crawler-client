@@ -5,24 +5,26 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>全部博文 --微博爬虫客户端</title>
+  <link rel="bookmark"href="/assets/weibo.ico" />
   <link href="https://cdn.bootcss.com/normalize/8.0.0/normalize.min.css" rel="stylesheet">
   <link href="./assets/mdui/css/mdui.min.css" rel="stylesheet">
 </head>
-<body class="mdui-theme-primary-deep-purple">
+<body class="mdui-theme-primary-deep-purple mdui-theme-accent-deep-purple mdui-loaded">
   <div class="mdui-container">
-      <button class="mdui-fab mdui-fab-fixed mdui-ripple" id="back"><i class="mdui-icon material-icons">arrow_back</i></button>
-      <h2>uid：<%=uid %></h2>
+      <h3 class="doc-chapter-title mdui-text-color-theme"><%=uname %></h3>
+      <button class="mdui-fab mdui-fab-fixed mdui-ripple mdui-color-theme-accent" id="back"><i class="mdui-icon material-icons">arrow_back</i></button>
       <ul class="mdui-list">
         <% rows.forEach(function(row){ %>
         <li class="mdui-list-item mdui-ripple">
-          <i class="mdui-list-item-icon mdui-icon material-icons">send</i>
+          <div class="mdui-list-item-avatar" style="background:none;"><img src="/assets/weibo.png"/></div>
           <div class="mdui-list-item-content">
-            <%-row.content %>
-            <span class="mdui-float-right">
-              <%=row.feed_time %> <a href="<%=row.url %>" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">insert_link</i></a>
-            </span>
+            <div class="mdui-list-item-title"><%=row.feed_time %></div>
+            <div class="mdui-list-item-text"><span class="mdui-text-color-theme-text"> <%-row.content %></span>
+            </div>
           </div>
+            <a href="<%=row.url %>"><i class="mdui-list-item-icon mdui-icon material-icons" >near_me</i></a>
         </li>
+         <li class="mdui-divider-inset mdui-m-y-0"></li>
         <% }); %>
       </ul>
   </div>
