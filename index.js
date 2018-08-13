@@ -22,9 +22,17 @@ router.get('/', async ctx => {
   let request = ctx.request;
   let req_query = request.query;
   let uid = req_query['uid'];
+  let rows = await subscribe.selectSubscribe(uid);
+  rows.forEach(item => {
+    if(/^\d*$/.test(item.uid)){
+      item.url = `https://weibo.com/u/${item.uid}`;
+    }else{
+      item.url = `https://weibo.com/${item.uid}`;
+    }
+  });
 
   await ctx.render('subscribe', {
-    rows: await subscribe.selectSubscribe(uid)
+    rows: rows
   });
 });
 
@@ -86,11 +94,12 @@ router.get('/feeds', async ctx => {
   let req_query = request.query;
   let uid = req_query['uid'];
   let uname = req_query['uname'];
+  let rows = await feeds.selectFeeds(uid);
 
   await ctx.render('feeds', {
     uid: uid,
     uname: uname,
-    rows: await feeds.selectFeeds(uid)
+    rows: rows
   });
 });
 
