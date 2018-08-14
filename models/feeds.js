@@ -25,7 +25,7 @@ async function addFeeds(uid, content, url, feedtime) {
  */
 async function selectFeeds(uid) {
   try {
-    const sql = `SELECT id,uid,content,url,date_format(feed_time,'%Y-%m-%d %T') feed_time FROM feeds where uid=?`;
+    const sql = `SELECT id,uid,content,url,date_format(feed_time,'%Y-%m-%d %T') feed_time FROM feeds where uid=? order by feed_time desc`;
     const values = [uid];
     return await query(sql, values);
   } catch (error) {
